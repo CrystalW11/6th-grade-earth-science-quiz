@@ -56,6 +56,7 @@ let correctCount = 0;
 let incorrectCount = 0;
 let timer;
 let seconds = 0;
+let totalSecondsSpent = 0; // New variable for total time
 let isMuted = false;
 let currentQuestionAlreadyWrong = false;
 let missedOnFirstTry = [];
@@ -66,7 +67,6 @@ document.getElementById("review-link").onclick = (e) => {
     const missedList = document.getElementById("missed-list");
     missedList.innerHTML = "";
     
-    // Add the running total at the top of the list
     const totalCountHeader = document.createElement("div");
     totalCountHeader.style.padding = "10px";
     totalCountHeader.style.fontWeight = "bold";
@@ -76,7 +76,6 @@ document.getElementById("review-link").onclick = (e) => {
     totalCountHeader.innerHTML = `Running Total of Missed Questions: ${missedOnFirstTry.length}`;
     missedList.appendChild(totalCountHeader);
 
-    // Create a scrollable container for the entries
     const scrollContainer = document.createElement("div");
     scrollContainer.style.maxHeight = "400px";
     scrollContainer.style.overflowY = "auto";
@@ -101,7 +100,8 @@ document.getElementById("review-link").onclick = (e) => {
                     </strong>
                     <div style="margin-top: 10px;">
                         <span style="color: #d9534f;"><strong>Your First Choice:</strong> ${entry.wrongAnswer}</span><br>
-                        <span style="color: #2e7d32;"><strong>The Correct Answer:</strong> ${entry.correctAnswer}</span>
+                        <span style="color: #2e7d32;"><strong>The Correct Answer:</strong> ${entry.correctAnswer}</span><br>
+                        <span style="color: #FF0000;"><strong>Time Spent on this Error: ${entry.timeAtMistake} seconds</strong></span>
                     </div>
                 </div>`;
             scrollContainer.appendChild(div);
@@ -115,7 +115,6 @@ document.getElementById("close-review").onclick = () => {
     document.getElementById("review-modal").style.display = "none";
 };
 
-// --- Mute Button ---
 document.getElementById("mute-btn").onclick = () => {
     isMuted = !isMuted;
     document.getElementById("mute-btn").textContent = isMuted ? "🔇" : "🔊";
@@ -134,6 +133,7 @@ function startTimer() {
   document.getElementById("timer").textContent = `Time: ${seconds}s`;
   timer = setInterval(() => {
     seconds++;
+    totalSecondsSpent++; // Increment total quiz time
     document.getElementById("timer").textContent = `Time: ${seconds}s`;
   }, 1000);
 }
@@ -218,7 +218,8 @@ function checkResult(isCorrect, checkedIndices) {
         missedOnFirstTry.push({
             questionText: q.text,
             wrongAnswer: wrongChoiceNames,
-            correctAnswer: correctChoiceNames
+            correctAnswer: correctChoiceNames,
+            timeAtMistake: seconds 
         });
     }
     
@@ -230,9 +231,16 @@ function checkResult(isCorrect, checkedIndices) {
 }
 
 document.getElementById("next-btn").onclick = () => { currentQuestion++; loadQuestion(); };
+
 document.getElementById("submit-btn").onclick = () => { 
   clearInterval(timer); 
-  document.getElementById("result").textContent = "All Done! Check 'Review Progress' for your final study list.";
+  // Convert total time to minutes and seconds for the final alert
+  const minutes = Math.floor(totalSecondsSpent / 60);
+  const remainingSeconds = totalSecondsSpent % 60;
+  const timeString = minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
+
+  document.getElementById("result").textContent = `All Done! Total Time: ${timeString}. Check 'Review Progress' for your final study list.`;
+  alert(`Quiz Completed!\nTotal Time Spent: ${timeString}\nFinal Score: ${correctCount} Correct`);
 };
 
 shuffleArray(questions);
