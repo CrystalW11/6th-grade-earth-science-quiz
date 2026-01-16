@@ -4,24 +4,55 @@
   <meta charset="UTF-8">
   <title>Rocks & Minerals Flashcard Quiz</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="background.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
   <h1>🌍 Rocks & Minerals Quiz</h1>
 
-  <div id="quiz-container">
-    <p id="progress"></p>
-    <p id="question-text"></p>
-    <div id="answers"></div>
-    <p id="feedback"></p>
+  <div id="main-layout">
+    <div id="quiz-container">
+      <button id="mute-btn" title="Toggle Sound">🔊</button>
+      
+      <div class="quiz-header">
+        <div id="progress-bar-container"><div id="progress-bar"></div></div>
+        <div style="display: flex; justify-content: space-between; margin-top: 5px; align-items: center;">
+          <div id="timer">Time: 0s</div>
+          <a href="#" id="review-link" style="color: #0066cc; font-size: 0.9rem; text-decoration: underline; cursor: pointer;">Review Progress</a>
+        </div>
+      </div>
 
-    <div class="controls">
-      <button id="next-btn">Next</button>
-      <button id="submit-btn">Submit</button>
+      <p id="progress"></p>
+      <p id="question-text"></p>
+      <div id="answers"></div>
+      <p id="feedback"></p>
+
+      <div class="controls">
+        <button id="next-btn" style="display:none;">Next</button>
+        <button id="submit-btn" style="display:none;">Submit</button>
+      </div>
+
+      <p id="score">✅: 0 | ❌: 0</p>
+      <h2 id="result"></h2>
     </div>
 
-    <p id="score"></p>
-    <h2 id="result"></h2>
+    <div id="reference-sidebar">
+      <h3>💎 Moh's Scale</h3>
+      <img src="mohs_Hardness_Scale.png" id="mohs-image" alt="Mohs Hardness Scale">
+      
+      <p><small>📌 Fingernail ≈ 2.5 | Penny ≈ 3.5 | Glass ≈ 5.5 | Steel Nail ≈ 6.5</small></p>
+    </div>
+  </div>
+
+  <div id="review-modal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000;">
+    <div style="background:white; width: 90%; max-width: 600px; margin: 50px auto; padding: 25px; border-radius: 12px; max-height: 80vh; overflow-y: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+      <h2 style="margin-top: 0; color: #333;">📝 Study Review (First-Try Mistakes)</h2>
+      <p style="color: #666; border-bottom: 1px solid #eee; padding-bottom: 10px;">Familiarize yourself with these questions to master the material!</p>
+      <ul id="missed-list" style="text-align: left; list-style: none; padding: 0;"></ul>
+      <button id="close-review" style="background: #333; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem;">Return to Quiz</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
