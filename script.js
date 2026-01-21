@@ -1,4 +1,4 @@
-// ----- All questions (Full List) -----
+// ----- Quiz 1: Rocks & Minerals (Original List) -----
 const questionsMaster = [
   { text: "This is the color of the mineral’s powder. Although the color of a mineral can vary, this will not vary.", choices: ["streak", "color", "luster", "density"], answer: 0 },
   { text: "Each mineral is characterized by the mass / volume.", choices: ["Density", "Crystal structure", "Cleavage of fracture", "Luster"], answer: 0 },
@@ -47,19 +47,108 @@ const questionsMaster = [
   { text: "Granite is an example of:", choices: ["Intrusive igneous rock","Extrusive igneous rock","Sedimentary rock","Metamorphic rock"], answer: 0 }
 ];
 
+// ----- Quiz 2: Igneous Rocks -----
+const igneousQuestions = [
+    { text: "Rocks are divided into three groups based on:", choices: ["Color", "How they form", "Weight", "Age"], answer: 1 },
+    { text: "Which rock group is divided into Intrusive and Extrusive?", choices: ["Metamorphic", "Sedimentary", "Igneous", "Clastic"], answer: 2 },
+    { text: "Sedimentary rocks are divided into which two sub-groups?", choices: ["Foliated/Non-foliated", "Intrusive/Extrusive", "Clastic/Non-Clastic", "Felsic/Mafic"], answer: 2 },
+    { text: "Metamorphic rocks are divided into which two sub-groups?", choices: ["Clastic/Non-Clastic", "Foliated/Non-Foliated", "Intrusive/Extrusive", "Felsic/Mafic"], answer: 1 },
+    { text: "Igneous rocks are formed when what materials cool and turn to solids?", choices: ["Sand and mud", "Magma and lava", "Dead plants", "Shells"], answer: 1 },
+    { text: "What do you call igneous rocks that form on the surface of the Earth?", choices: ["Intrusive", "Extrusive", "Plutonic", "Foliated"], answer: 1 },
+    { text: "What is another name for Extrusive rocks?", choices: ["Plutonic", "Volcanic", "Clastic", "Non-foliated"], answer: 1 },
+    { text: "What do you call igneous rocks that form underground?", choices: ["Extrusive", "Intrusive", "Volcanic", "Clastic"], answer: 1 },
+    { text: "What is another name for Intrusive rocks?", choices: ["Volcanic", "Plutonic", "Non-clastic", "Foliated"], answer: 1 },
+    { text: "Which two elements are the most common in Earth's crust and igneous rocks?", choices: ["Gold and Silver", "Oxygen and Silicon", "Iron and Magnesium", "Carbon and Nitrogen"], answer: 1 },
+    { text: "Which of these is NOT one of the 8 most common elements in igneous rocks?", choices: ["Aluminum", "Calcium", "Potassium", "Silver"], answer: 3 },
+    { text: "Igneous rocks are classified according to origin, mineral composition, and _______.", choices: ["Weight", "Texture", "Smell", "Age"], answer: 1 },
+    { text: "How does magma cool to form Intrusive rocks?", choices: ["Slowly", "Rapidly", "Instantly", "Only when it hits water"], answer: 0 },
+    { text: "What size crystals do Intrusive rocks have?", choices: ["Fine-grained", "Large grain crystals", "No crystals", "Microscopic"], answer: 1 },
+    { text: "How do Intrusive rocks feel to the touch (unpolished)?", choices: ["Smooth", "Rough", "Glassy", "Soft"], answer: 1 },
+    { text: "Which rock is the primary makeup of Earth's continental crust?", choices: ["Basalt", "Granite", "Obsidian", "Pumice"], answer: 1 },
+    { text: "When lava cools rapidly, it forms which type of rock?", choices: ["Intrusive", "Extrusive", "Plutonic", "Foliated"], answer: 1 },
+    { text: "Where are extrusive rocks exposed while they are cooling?", choices: ["Deep underground", "The atmosphere", "Inside a cave", "In the mantle"], answer: 1 },
+    { text: "What size crystals do Extrusive rocks usually have?", choices: ["Large", "Fine-grained", "Huge", "Visible from far away"], answer: 1 },
+    { text: "Which rock is the primary makeup of the oceanic crust?", choices: ["Granite", "Basalt", "Rhyolite", "Gabbro"], answer: 1 },
+    { text: "Why is granite useful for building materials?", choices: ["It is soft", "It is hard, dense, and durable", "It is light like a feather", "It dissolves in water"], answer: 1 },
+    { text: "Which rock is crushed to make gravel for construction?", choices: ["Granite", "Pumice", "Basalt", "Obsidian"], answer: 2 },
+    { text: "Which rock is used as an abrasive for cleaning and polishing?", choices: ["Granite", "Pumice", "Basalt", "Gabbro"], answer: 1 },
+    { text: "Perlite, used in garden soil, comes from which rock?", choices: ["Granite", "Obsidian", "Basalt", "Rhyolite"], answer: 1 },
+    { text: "Felsic rocks have the highest content of which element?", choices: ["Iron", "Silicon", "Magnesium", "Calcium"], answer: 1 },
+    { text: "What color are Felsic rocks usually?", choices: ["Dark colored", "Light colored", "Always green", "Transparent"], answer: 1 },
+    { text: "Which of these is a Felsic rock?", choices: ["Basalt", "Gabbro", "Granite", "Scoria"], answer: 2 },
+    { text: "How does the density of Felsic rocks compare to Mafic rocks?", choices: ["Lower density", "Higher density", "Same density", "Felsic rocks have no density"], answer: 0 },
+    { text: "Mafic rocks are higher in which two elements?", choices: ["Silicon and Oxygen", "Aluminum and Potassium", "Magnesium and Iron", "Sodium and Calcium"], answer: 2 },
+    { text: "What color are Mafic rocks usually?", choices: ["Light colored", "Dark colored", "White", "Pink"], answer: 1 },
+    { text: "Which of these is a Mafic rock?", choices: ["Granite", "Rhyolite", "Basalt", "Pumice"], answer: 2 },
+    { text: "Which rock type has a higher density?", choices: ["Felsic", "Mafic"], answer: 1 },
+    { text: "Intrusive rocks often have more _____ than extrusive rocks.", choices: ["Water", "Colors", "Gas bubbles", "Sand"], answer: 1 },
+    { text: "Which rock is an example of an Extrusive rock?", choices: ["Granite", "Basalt", "Gabbro", "Diorite"], answer: 1 },
+    { text: "What is the origin of Felsic rocks (elements)?", choices: ["Mg and Fe", "Si, O, Al, Na, K", "Pure Carbon", "Only Oxygen"], answer: 1 },
+    { text: "Which rock forms from lava?", choices: ["Intrusive", "Extrusive"], answer: 1 },
+    { text: "Which rock forms from magma?", choices: ["Intrusive", "Extrusive"], answer: 0 },
+    { text: "Rhyolite is an example of a _____ rock.", choices: ["Felsic", "Mafic", "Intrusive", "Sedimentary"], answer: 0 },
+    { text: "Gabbro is an example of a _____ rock.", choices: ["Felsic", "Mafic", "Extrusive", "Clastic"], answer: 1 },
+    { text: "The texture of a rock is determined by the size of its _____.", choices: ["Weight", "Crystals", "Bubbles", "Layers"], answer: 1 },
+    { text: "Plutonic rocks are formed _____.", choices: ["On the surface", "Underground", "In the ocean", "In the air"], answer: 1 },
+    { text: "Volcanic rocks are formed _____.", choices: ["On the surface", "Underground", "In the mantle", "Slowly"], answer: 0 },
+    { text: "Which list contains only igneous rocks?", choices: ["Granite, Basalt, Obsidian", "Sandstone, Shale, Coal", "Marble, Slate, Quartzite", "Granite, Limestone, Gneiss"], answer: 0 },
+    { text: "Why does pumice have a rough surface?", choices: ["Because of large crystals", "Because of gas bubbles during cooling", "Because it was carved", "Because it is very old"], answer: 1 },
+    { text: "Is Granite intrusive or extrusive?", choices: ["Intrusive", "Extrusive"], answer: 0 },
+    { text: "Is Basalt intrusive or extrusive?", choices: ["Intrusive", "Extrusive"], answer: 1 },
+    { text: "Which element is the most abundant in the Earth's crust?", choices: ["Silicon", "Oxygen", "Iron", "Aluminum"], answer: 1 },
+    { text: "Felsic rocks have a _____ silicon content than Mafic rocks.", choices: ["Higher", "Lower", "Identical"], answer: 0 },
+    { text: "Slow cooling results in _____ crystals.", choices: ["Smaller", "Larger", "No", "Glassy"], answer: 1 },
+    { text: "Rapid cooling results in _____ crystals.", choices: ["Smaller", "Larger", "Beautiful", "Square"], answer: 0 }
+];
+
 const correctSound = new Audio('https://www.myinstants.com/media/sounds/mlg-airhorn.mp3');
 const incorrectSound = new Audio('https://freesound.org/data/previews/142/142608_1840739-lq.mp3'); 
 
-let questions = [...questionsMaster];
+let questions = [...questionsMaster]; // Current active questions
 let currentQuestion = 0;
 let correctCount = 0;
 let incorrectCount = 0;
 let timer;
 let seconds = 0;
-let totalSecondsSpent = 0; // New variable for total time
+let totalSecondsSpent = 0;
 let isMuted = false;
 let currentQuestionAlreadyWrong = false;
 let missedOnFirstTry = [];
+
+// --- QUIZ SWITCHER LOGIC ---
+function switchQuiz(quizKey) {
+    // 1. Update Buttons
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('nav-' + quizKey).classList.add('active');
+
+    // 2. Setup Questions & UI
+    if (quizKey === 'igneous') {
+        questions = [...igneousQuestions];
+        document.getElementById('quiz-title').textContent = "🌋 Igneous Rock Quiz";
+        document.getElementById('reference-sidebar').style.display = 'none';
+        document.getElementById('igneous-sidebar').style.display = 'block';
+    } else {
+        questions = [...questionsMaster];
+        document.getElementById('quiz-title').textContent = "🌍 Rocks & Minerals Quiz";
+        document.getElementById('reference-sidebar').style.display = 'block';
+        document.getElementById('igneous-sidebar').style.display = 'none';
+    }
+
+    // 3. Reset All Stats
+    currentQuestion = 0;
+    correctCount = 0;
+    incorrectCount = 0;
+    totalSecondsSpent = 0;
+    missedOnFirstTry = [];
+    currentQuestionAlreadyWrong = false;
+    
+    document.getElementById("score").textContent = `✅: 0 | ❌: 0`;
+    document.getElementById("result").textContent = "";
+    document.getElementById("feedback").textContent = "";
+    
+    shuffleArray(questions);
+    loadQuestion();
+}
 
 // --- Review Link Interaction ---
 document.getElementById("review-link").onclick = (e) => {
@@ -133,7 +222,7 @@ function startTimer() {
   document.getElementById("timer").textContent = `Time: ${seconds}s`;
   timer = setInterval(() => {
     seconds++;
-    totalSecondsSpent++; // Increment total quiz time
+    totalSecondsSpent++; 
     document.getElementById("timer").textContent = `Time: ${seconds}s`;
   }, 1000);
 }
@@ -234,7 +323,6 @@ document.getElementById("next-btn").onclick = () => { currentQuestion++; loadQue
 
 document.getElementById("submit-btn").onclick = () => { 
   clearInterval(timer); 
-  // Convert total time to minutes and seconds for the final alert
   const minutes = Math.floor(totalSecondsSpent / 60);
   const remainingSeconds = totalSecondsSpent % 60;
   const timeString = minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
@@ -243,5 +331,6 @@ document.getElementById("submit-btn").onclick = () => {
   alert(`Quiz Completed!\nTotal Time Spent: ${timeString}\nFinal Score: ${correctCount} Correct`);
 };
 
+// Start the quiz initially
 shuffleArray(questions);
 loadQuestion();
