@@ -47,7 +47,7 @@ const questionsMaster = [
   { text: "Granite is an example of:", choices: ["Intrusive igneous rock","Extrusive igneous rock","Sedimentary rock","Metamorphic rock"], answer: 0 }
 ];
 
-// ----- Quiz 2: Igneous Rocks -----
+// ----- Quiz 2: Igneous Rocks (Condensed 40 + 5 Volcano Parts = 45 Questions) -----
 const igneousQuestions = [
     { text: "Rocks are divided into three groups based on:", choices: ["Color", "How they form", "Weight", "Age"], answer: 1 },
     { text: "Which rock group is divided into Intrusive and Extrusive?", choices: ["Metamorphic", "Sedimentary", "Igneous", "Clastic"], answer: 2 },
@@ -88,13 +88,19 @@ const igneousQuestions = [
     { text: "Which of these pairs is correct?", choices: ["Granite: Extrusive", "Basalt: Intrusive", "Granite: Intrusive", "Obsidian: Plutonic"], answer: 2 },
     { text: "Which element is the most abundant in the Earth's crust?", choices: ["Silicon", "Oxygen", "Iron", "Aluminum"], answer: 1 },
     { text: "Felsic rocks have a __________ silicon content than Mafic rocks.", choices: ["Higher", "Lower", "Identical", "Zero"], answer: 0 },
-    { text: "Slow cooling results in __________ crystals, while rapid cooling results in __________ crystals.", choices: ["Smaller / Larger", "Larger / Smaller", "No / Glassy", "Larger / Large"], answer: 1 }
+    { text: "Slow cooling results in __________ crystals, while rapid cooling results in __________ crystals.", choices: ["Smaller / Larger", "Larger / Smaller", "No / Glassy", "Larger / Large"], answer: 1 },
+    // NEW: Inside Parts of a Volcano
+    { text: "Where is the large pool of magma located beneath a volcano?", choices: ["The Pipe", "The Magma Chamber", "The Side Vent", "The Crater"], answer: 1 },
+    { text: "The long tube that connects the magma chamber to the Earth's surface is called the:", choices: ["Side Vent", "Vent", "Pipe", "Crater"], answer: 2 },
+    { text: "The opening through which molten rock and gas leave a volcano is called a:", choices: ["Pipe", "Magma Chamber", "Vent", "Side Vent"], answer: 2 },
+    { text: "A smaller opening on the side of a volcano where magma can escape is called a:", choices: ["Main Vent", "Pipe", "Side Vent", "Crater"], answer: 2 },
+    { text: "The bowl-shaped area that may form at the top of a volcano around the central vent is the:", choices: ["Magma Chamber", "Crater", "Pipe", "Vent"], answer: 1 }
 ];
 
 const correctSound = new Audio('https://www.myinstants.com/media/sounds/mlg-airhorn.mp3');
 const incorrectSound = new Audio('https://freesound.org/data/previews/142/142608_1840739-lq.mp3'); 
 
-let questions = [...questionsMaster]; // Current active questions
+let questions = [...questionsMaster];
 let currentQuestion = 0;
 let correctCount = 0;
 let incorrectCount = 0;
@@ -105,13 +111,10 @@ let isMuted = false;
 let currentQuestionAlreadyWrong = false;
 let missedOnFirstTry = [];
 
-// --- QUIZ SWITCHER LOGIC ---
 function switchQuiz(quizKey) {
-    // 1. Update Buttons
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById('nav-' + quizKey).classList.add('active');
 
-    // 2. Setup Questions & UI
     if (quizKey === 'igneous') {
         questions = [...igneousQuestions];
         document.getElementById('quiz-title').textContent = "🌋 Igneous Rock Quiz";
@@ -124,7 +127,6 @@ function switchQuiz(quizKey) {
         document.getElementById('igneous-sidebar').style.display = 'none';
     }
 
-    // 3. Reset All Stats
     currentQuestion = 0;
     correctCount = 0;
     incorrectCount = 0;
@@ -135,12 +137,13 @@ function switchQuiz(quizKey) {
     document.getElementById("score").textContent = `✅: 0 | ❌: 0`;
     document.getElementById("result").textContent = "";
     document.getElementById("feedback").textContent = "";
+    const guide = document.getElementById("study-guide-container");
+    if(guide) guide.style.display = "none";
     
     shuffleArray(questions);
     loadQuestion();
 }
 
-// --- Review Link Interaction ---
 document.getElementById("review-link").onclick = (e) => {
     e.preventDefault();
     const missedList = document.getElementById("missed-list");
@@ -158,7 +161,6 @@ document.getElementById("review-link").onclick = (e) => {
     const scrollContainer = document.createElement("div");
     scrollContainer.style.maxHeight = "400px";
     scrollContainer.style.overflowY = "auto";
-    scrollContainer.style.paddingRight = "5px";
 
     if (missedOnFirstTry.length === 0) {
         scrollContainer.innerHTML = "<p style='color: #333; padding: 10px;'>No mistakes yet! Keep up the good work.</p>";
@@ -259,6 +261,7 @@ document.getElementById("answers").addEventListener("change", (e) => {
 function checkResult(isCorrect, checkedIndices) {
   const fb = document.getElementById("feedback");
   const q = questions[currentQuestion];
+  const guide = document.getElementById("study-guide-container");
 
   if (isCorrect) {
     clearInterval(timer);
@@ -269,6 +272,7 @@ function checkResult(isCorrect, checkedIndices) {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     fb.textContent = "✅ Correct!";
     fb.className = "correct";
+    if(guide) guide.style.display = "none"; 
     
     if (currentQuestionAlreadyWrong) {
         if (incorrectCount > 0) incorrectCount--;
@@ -290,7 +294,6 @@ function checkResult(isCorrect, checkedIndices) {
     if (!currentQuestionAlreadyWrong) {
         incorrectCount++;
         currentQuestionAlreadyWrong = true;
-        
         const wrongChoiceNames = checkedIndices.map(i => q.choices[i]).join(" & ");
         const correctChoiceNames = Array.isArray(q.answer) ? q.answer.map(i => q.choices[i]).join(" & ") : q.choices[q.answer];
 
@@ -302,8 +305,30 @@ function checkResult(isCorrect, checkedIndices) {
         });
     }
     
-    fb.textContent = `❌ Not quite. Keep going!`;
+    fb.textContent = `❌ Not quite. Review the guide below!`;
     fb.className = "incorrect";
+
+    // --- Study Guide Scrolling Logic ---
+    if(guide) {
+        guide.style.display = "block";
+        let sectionId = "";
+        const text = q.text.toLowerCase();
+        
+        if (text.includes("intrusive") || text.includes("plutonic") || text.includes("granite")) sectionId = "ref-intrusive";
+        else if (text.includes("extrusive") || text.includes("volcanic") || text.includes("basalt")) sectionId = "ref-extrusive";
+        else if (text.includes("felsic") || text.includes("mafic") || text.includes("silicon")) sectionId = "ref-felsic";
+        else if (text.includes("element") || text.includes("oxygen") || text.includes("crust")) sectionId = "ref-composition";
+        // New volcano redirection
+        else if (text.includes("chamber") || text.includes("pipe") || text.includes("vent") || text.includes("crater")) sectionId = "ref-volcano";
+        else sectionId = "ref-igneous-groups";
+
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            section.classList.add('highlight-ref');
+            setTimeout(() => section.classList.remove('highlight-ref'), 2000);
+        }
+    }
   }
   
   document.getElementById("score").textContent = `✅: ${correctCount} | ❌: ${incorrectCount}`;
@@ -321,6 +346,5 @@ document.getElementById("submit-btn").onclick = () => {
   alert(`Quiz Completed!\nTotal Time Spent: ${timeString}\nFinal Score: ${correctCount} Correct`);
 };
 
-// Start the quiz initially
 shuffleArray(questions);
 loadQuestion();
